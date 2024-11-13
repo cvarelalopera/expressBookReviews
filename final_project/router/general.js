@@ -50,7 +50,60 @@ public_users.get('/title/:title', (req, res) => {
     res.status(404).json({ message: "No books found with this title" });
   }
 });
+// Task 10 - Fetch list of books using Async-Await
+const axios = require('axios');
 
+async function getBooksList() {
+    try {
+        const response = await axios.get('http://localhost:3000/books');
+        console.log('Books List:', response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching books list:', error);
+    }
+}
+
+// Call the function
+getBooksList();
+// Task 11 - Fetch book details by ISBN using Async-Await
+async function getBookByISBN(isbn) {
+    try {
+        const response = await axios.get(`http://localhost:3000/books/${isbn}`);
+        console.log(`Book details for ISBN ${isbn}:`, response.data);
+        return response.data;
+    } catch (error) {
+        console.error(`Error fetching book details for ISBN ${isbn}:`, error);
+    }
+}
+
+// Call the function with ISBN '1' as an example
+getBookByISBN(1);
+// Task 12 - Fetch book details by Author using Async-Await
+async function getBooksByAuthor(author) {
+    try {
+        const response = await axios.get(`http://localhost:3000/books/author/${author}`);
+        console.log(`Books by author ${author}:`, response.data);
+        return response.data;
+    } catch (error) {
+        console.error(`Error fetching books by author ${author}:`, error);
+    }
+}
+
+// Call the function with Author 'Jane Austen' as an example
+getBooksByAuthor('Jane Austen');
+// Task 13 - Fetch book details by Title using Async-Await
+async function getBooksByTitle(title) {
+    try {
+        const response = await axios.get(`http://localhost:3000/books/title/${title}`);
+        console.log(`Books with title "${title}":`, response.data);
+        return response.data;
+    } catch (error) {
+        console.error(`Error fetching books with title "${title}":`, error);
+    }
+}
+
+// Call the function with Title 'Pride and Prejudice' as an example
+getBooksByTitle('Pride and Prejudice');
 // Get book review based on ISBN
 public_users.get('/review/:isbn', (req, res) => {
   const isbn = req.params.isbn;
