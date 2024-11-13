@@ -11,4 +11,48 @@ let books = {
       10: {"author": "Samuel Beckett","title": "Molloy, Malone Dies, The Unnamable, the trilogy", "reviews": {} }
 }
 
-module.exports=books;
+// Function to get book by ISBN
+const getBookByISBN = (isbn) => {
+    return books[isbn] || null;
+};
+
+// Function to get books by author
+const getBooksByAuthor = (author) => {
+    let result = [];
+    for (let key in books) {
+        if (books[key].author.toLowerCase() === author.toLowerCase()) {
+            result.push(books[key]);
+        }
+    }
+    return result;
+};
+
+// Function to get books by title
+const getBooksByTitle = (title) => {
+    let result = [];
+    for (let key in books) {
+        if (books[key].title.toLowerCase() === title.toLowerCase()) {
+            result.push(books[key]);
+        }
+    }
+    return result;
+};
+
+// Function to add a review to a book by ISBN
+const addReview = (isbn, review) => {
+    if (books[isbn]) {
+        books[isbn].reviews.push(review);
+        return books[isbn];
+    } else {
+        return null;
+    }
+};
+
+// Exporting books object and functions
+module.exports = {
+    books,
+    getBookByISBN,
+    getBooksByAuthor,
+    getBooksByTitle,
+    addReview
+};
